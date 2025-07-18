@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "wagtail_helpdesk.experts",
     "wagtail_helpdesk.utils",
     "wagtail_helpdesk.volunteers",
+    "wagtail_helpdesk.tenants",
     "wagtail.contrib.modeladmin",
     "wagtail.contrib.table_block",
     "wagtail.contrib.forms",
