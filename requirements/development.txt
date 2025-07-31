@@ -76,6 +76,7 @@ django==4.2.16
     #   django-health-check
     #   django-modelcluster
     #   django-permissionedforms
+    #   django-storages
     #   django-taggit
     #   django-treebeard
     #   djangorestframework
@@ -262,7 +263,6 @@ runs==1.2.2
     # via editor
 six==1.16.0
     # via
-    #   blessed
     #   html5lib
     #   l18n
     #   python-dateutil
