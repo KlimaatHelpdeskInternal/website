@@ -1,5 +1,7 @@
-django~=4.2
-wagtail~=5.2
-wagtail-helpdesk @ https://github.com/Klimaat-Helpdesk/wagtail-helpdesk/archive/refs/tags/0.7.5.zip
+#wagtail-helpdesk @ "./wagtail-helpdesk"
+#wagtail-helpdesk @ https://github.com/KlimaatHelpdeskInternal/wagtail-helpdesk/archive/refs/heads/UpgradeToWagtail7.zip
+#wagtail-helpdesk "c:\kh\wagtail-helpdesk"
+django==5.2
+wagtail~=7.1
 python-gitlab
 django-health-check
