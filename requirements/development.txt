@@ -8,10 +8,6 @@ ansicon==1.89.0
     # via jinxed
 anyascii==0.3.2
     # via wagtail
-argon2-cffi==21.3.0
-    # via wagtail-helpdesk
-argon2-cffi-bindings==21.2.0
-    # via argon2-cffi
 asgiref==3.8.1
     # via django
 bcrypt==4.2.0
@@ -38,7 +34,6 @@ certifi==2024.8.30
     # via requests
 cffi==1.17.1
     # via
-    #   argon2-cffi-bindings
     #   cryptography
     #   pynacl
 charset-normalizer==3.3.2
@@ -67,35 +62,34 @@ deprecated==1.2.14
     # via fabric
 dj-database-url==2.3.0
     # via -r requirements/development.in
-django==4.2.16
+django==5.2
     # via
     #   -r c:\KH\klimaat-helpdesk\requirements\base.in
     #   dj-database-url
-    #   django-allauth
     #   django-filter
     #   django-health-check
     #   django-modelcluster
     #   django-permissionedforms
+    #   django-stubs-ext
     #   django-taggit
+    #   django-tasks
     #   django-treebeard
     #   djangorestframework
+    #   laces
     #   wagtail
-    #   wagtail-helpdesk
-django-allauth==0.63.6
-    # via wagtail-helpdesk
-django-crispy-forms==1.14.0
-    # via wagtail-helpdesk
 django-filter==23.5
     # via wagtail
 django-health-check==3.18.3
     # via -r c:\KH\klimaat-helpdesk\requirements\base.in
-django-ipware==7.0.1
-    # via wagtail-helpdesk
 django-modelcluster==6.3
     # via wagtail
 django-permissionedforms==0.1
     # via wagtail
-django-taggit==4.0.0
+django-stubs-ext==5.2.2
+    # via django-tasks
+django-taggit==6.1.0
+    # via wagtail
+django-tasks==0.8.1
     # via wagtail
 django-treebeard==4.7.1
     # via wagtail
@@ -140,9 +134,7 @@ gunicorn==23.0.0
 h11==0.16.0
     # via uvicorn
 html5lib==1.1
-    # via
-    #   pip-audit
-    #   wagtail
+    # via pip-audit
 idna==3.8
     # via requests
 iniconfig==2.0.0
@@ -157,7 +149,7 @@ isort==5.13.2
     #   flake8-isort
 jinxed==1.3.0
     # via blessed
-l18n==2021.3
+laces==0.1.2
     # via wagtail
 license-expression==30.3.1
     # via cyclonedx-python-lib
@@ -234,12 +226,8 @@ python-dateutil==2.9.0.post0
     # via faker
 python-gitlab==4.10.0
     # via -r c:\KH\klimaat-helpdesk\requirements\base.in
-python-ipware==3.0.0
-    # via django-ipware
 pytz==2024.1
-    # via
-    #   django-modelcluster
-    #   l18n
+    # via django-modelcluster
 pyyaml==6.0.2
     # via responses
 readchar==4.2.0
@@ -264,7 +252,6 @@ six==1.16.0
     # via
     #   blessed
     #   html5lib
-    #   l18n
     #   python-dateutil
 smmap==5.0.1
     # via gitdb
@@ -281,7 +268,10 @@ termcolor==2.4.0
 toml==0.10.2
     # via pip-audit
 typing-extensions==4.13.2
-    # via dj-database-url
+    # via
+    #   dj-database-url
+    #   django-stubs-ext
+    #   django-tasks
 tzdata==2025.2
     # via django
 urllib3==2.2.2
@@ -290,18 +280,12 @@ urllib3==2.2.2
     #   responses
 uvicorn==0.34.2
     # via -r requirements/development.in
-wagtail==5.2.6
+wagtail==7.1
     # via
     #   -r c:\KH\klimaat-helpdesk\requirements\base.in
     #   wagtail-factories
-    #   wagtail-helpdesk
-    #   wagtail-modeladmin
 wagtail-factories==4.2.1
     # via -r c:\KH\klimaat-helpdesk\requirements\testing.in
-wagtail-helpdesk @ https://github.com/Klimaat-Helpdesk/wagtail-helpdesk/archive/refs/tags/0.7.5.zip
-    # via -r c:\KH\klimaat-helpdesk\requirements\base.in
-wagtail-modeladmin==2.0.0
-    # via wagtail-helpdesk
 waitress==3.0.0
     # via webtest
 wcwidth==0.2.13
@@ -314,7 +298,7 @@ webtest==3.0.1
     # via django-webtest
 whitenoise[brotli]==6.9.0
     # via -r requirements/development.in
-willow[heif]==1.6.3
+willow[heif]==1.11.0
     # via
     #   wagtail
     #   willow
