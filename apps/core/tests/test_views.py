@@ -1,7 +1,7 @@
 """
 Tests for site page views to ensure all pages load properly.
 
-This test suite verifies that key site pages respond correctly with proper HTTP status codes
+This file verifies that key site pages respond correctly with proper HTTP status codes
 and contain expected content. It covers the main navigation paths and critical functionality
 pages of the Klimaat Helpdesk application.
 """
