@@ -302,7 +302,7 @@ wagtail==5.2.6
     #   wagtail-modeladmin
 wagtail-factories==4.2.1
     # via -r requirements/testing.in
-wagtail-helpdesk @ https://github.com/Klimaat-Helpdesk/wagtail-helpdesk/archive/refs/tags/0.7.5.zip
+wagtail-helpdesk @ https://github.com/KlimaatHelpdeskInternal/website/archive/refs/heads/VideoInAnswer.zip
     # via -r requirements/base.in
 wagtail-modeladmin==2.0.0
     # via wagtail-helpdesk
