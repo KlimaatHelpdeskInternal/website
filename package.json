@@ -44,7 +44,9 @@
         "not IE 11"
     ],
     "babel": {
-        "presets": ["@babel/preset-env"]
+        "presets": [
+            "@babel/preset-env"
+        ]
     },
     "eslintConfig": {
         "env": {
@@ -52,20 +54,28 @@
             "node": true,
             "es2021": true
         },
-        "extends": ["eslint:recommended", "prettier"],
+        "extends": [
+            "eslint:recommended",
+            "prettier"
+        ],
         "parser": "@babel/eslint-parser"
     },
     "stylelint": {
         "extends": [
-          "stylelint-config-standard",
-          "stylelint-config-standard-scss",
-          "stylelint-config-prettier-scss"
+            "stylelint-config-standard",
+            "stylelint-config-standard-scss",
+            "stylelint-config-prettier-scss"
         ],
         "customSyntax": "postcss-scss",
-        "ignoreFiles": ["!apps/frontend/static_src/scss/**/*"],
+        "ignoreFiles": [
+            "!apps/frontend/static_src/scss/**/*"
+        ],
         "rules": {
-          "selector-class-pattern": null,
-          "selector-id-pattern": null
+            "selector-class-pattern": null,
+            "selector-id-pattern": null
         }
+    },
+    "dependencies": {
+        "watch": "^1.0.2"
     }
 }
