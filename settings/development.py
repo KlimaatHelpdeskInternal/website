@@ -33,6 +33,8 @@ SECRET_KEY = "CHANGEME!!!"
 
 BASE_URL = WAGTAILADMIN_BASE_URL = "http://localhost:8000"
 MEDIA_ROOT = "/media"
+BASE_DIR = Path(__file__).resolve().parent.parent
+JS_TESTS_ROOT = BASE_DIR/"js_tests"
 
 LOGGING = {
     "version": 1,
@@ -43,6 +45,7 @@ LOGGING = {
         },
     },
 }
+QUNIT_TEST_DIRECTORY = os.path.join(BASE_DIR, 'js_tests')
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 

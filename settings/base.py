@@ -65,6 +65,7 @@ INSTALLED_APPS = [
 
     # Health check
     "health_check",
+
 ]
 
 MIDDLEWARE = [
