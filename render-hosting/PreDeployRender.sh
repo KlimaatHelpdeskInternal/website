@@ -3,4 +3,4 @@
 set -o errexit
 # Apply any outstanding database migrations
 python manage.py makemigrations
-python manage.py migrate
+python manage.py migrate --settings=settings.render-test
