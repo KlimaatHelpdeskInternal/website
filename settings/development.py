@@ -9,7 +9,6 @@ MIDDLEWARE += [
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "CHANGEME!!!"
 
@@ -26,7 +25,6 @@ LOGGING = {
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 
 try:
     from .local import *  # NOQA
