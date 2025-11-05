@@ -9,19 +9,50 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from botocore.client import Config as BotoConfig
+
+
+def get_secret(secret_path, default=None):
+    if not os.path.exists(secret_path):
+        return default
+    return Path(secret_path).read_text().strip()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
-RELEASE_VERSION = os.environ.get("RELEASE_VERSION", "NO VERSION FOUND")
+# https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts
+# Allow localhost for docker HEALTHCHECK
+ALLOWED_HOSTS = [".localhost", "127.0.0.1", "[::1]"] + list(filter(None, os.getenv("ALLOWED_HOSTS", "").split(",")))
+
+RELEASE_VERSION = os.getenv("RELEASE_VERSION", "NO VERSION FOUND")
+WAGTAILADMIN_BASE_URL=os.getenv("WAGTAILADMIN_BASE_URL")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# Add a default sender email address.
+# EMAIL
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = "info@klimaathelpdesk.org"
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+
+EMAIL_HOST = os.getenv("EMAIL_HOST", "localhost")
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
+EMAIL_HOST_PASSWORD = get_secret(
+    os.getenv("EMAIL_HOST_PASSWORD_FILE", "/run/secrets/email_host_password"),
+    "",
+)
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-port
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "25"))
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-use-tls
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "False").lower() in ("true", "1")
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-use-ssl
+EMAIL_USE_SSL = os.getenv("MAIL_USE_SSL", "False").lower() in ("true", "1")
 
 # Set default primary key field
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
@@ -69,7 +100,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -104,23 +134,31 @@ TEMPLATES = [
     },
 ]
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 AUTH_USER_MODEL = "users.User"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "klimaathelpdesk",
+# DATABASES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#databases
+DATABASES = {"default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "CONN_MAX_AGE": 600,
-        # number of seconds database connections should persist for
-        "USER": "",
-        "HOST": "",
-        "PASSWORD": "",
-    }
-}
+        "DISABLE_SERVER_SIDE_CURSORS": True,  # For PgBouncer
+        "NAME": os.getenv("POSTGRES_NAME", "biodiversiteithelpdesk"),
+        "HOST": os.getenv("POSTGRES_HOST", ""),
+        "PORT": os.getenv("POSTGRES_PORT", 5432),
+        "USER": os.getenv("POSTGRES_USER", ""),
+        "PASSWORD": get_secret(
+            os.getenv("POSTGRES_PASSWORD_FILE", "/run/secrets/db_password"),
+            "",
+        ),
+}}
 
+# https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = get_secret(
+    os.getenv("SECRET_KEY_FILE", "/run/secrets/secret_key"),
+    "django-insecure-default-secret-key",
+)
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -152,7 +190,30 @@ USE_L10N = True
 
 USE_TZ = True
 
-WAGTAILADMIN_BASE_URL = BASE_URL = "https://klimaathelpdesk.org"
+
+# S3/Minio (used by static and media storage)
+# ------------------------------------------------------------------------------
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
+AWS_S3_ENDPOINT_URL = os.getenv("AWS_S3_ENDPOINT_URL", "http://minio:8001/")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "s3bucket")
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID", "minioadmin")
+AWS_SECRET_ACCESS_KEY = get_secret(
+    os.getenv("AWS_SECRET_ACCESS_KEY_FILE", "/run/secrets/aws_secret_access_key"),
+    "miniopassword",
+)
+# Fix SignatureDoesNotMatch with latest boto3 release:
+# https://github.com/jschneier/django-storages/issues/1482#issuecomment-2648033009
+AWS_S3_CLIENT_CONFIG = BotoConfig(
+    request_checksum_calculation="when_required",
+    response_checksum_validation="when_required",
+)
+
+# STORAGES
+# https://docs.djangoproject.com/en/4.2/ref/settings/#storages
+STORAGES = {
+    "default": {"BACKEND": "apps.core.storages.MediaS3Storage"},
+    "staticfiles": {"BACKEND": "apps.core.storages.StaticS3Storage"},
+}
 
 
 # Static files (CSS, JavaScript, Images)
@@ -163,24 +224,6 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATIC_ROOT = BASE_DIR / "static"
-STATIC_URL = "/static/"
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-# This setting informs Django of the URI path from which your static files will be served to users
-# Here, they well be accessible at your-domain.onrender.com/static/... or yourcustomdomain.com/static/...
-
-# This production code might break development mode, so we check whether we're in DEBUG mode
-if not DEBUG:
-    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-    # and renames the files with unique names for each version to support long-term caching
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "/media/"
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "klimaat-helpdesk"

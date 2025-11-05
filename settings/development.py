@@ -1,5 +1,3 @@
-import os
-import dj_database_url 
 from .base import *  # NOQA
 
 
@@ -30,7 +28,6 @@ if RENDER_EXTERNAL_HOSTNAME:
 SECRET_KEY = "CHANGEME!!!"
 
 BASE_URL = WAGTAILADMIN_BASE_URL = "http://localhost:8000"
-MEDIA_ROOT = "/media"
 
 LOGGING = {
     "version": 1,
@@ -42,18 +39,20 @@ LOGGING = {
     },
 }
 
+# Django should serve static, frontend service (npm run start) will auto rebuild
+STORAGES["staticfiles"] = {  # noqa: F405
+    "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+}
+STATIC_URL = "/static/"
+STATIC_ROOT = "/static/"
+
+# Project has no docker-compose, use filesystem for media
+STORAGES["default"] = {  # noqa: F405
+    "BACKEND": "django.core.files.storage.FileSystemStorage"
+}
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/media/"
+
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-# This production code might break development mode, so we check whether we're in DEBUG mode
-if not DEBUG:
-    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-    # and renames the files with unique names for each version to support long-term caching
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-try:
-    from .local import *  # NOQA
-except ImportError:
-    pass
