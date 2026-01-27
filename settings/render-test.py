@@ -15,7 +15,7 @@ MIDDLEWARE = [
 ]
 
 
-del(STORAGES)
+#del(STORAGES)
 
 ALLOWED_HOSTS = []
 DEBUG = True
