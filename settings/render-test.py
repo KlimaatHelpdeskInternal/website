@@ -31,8 +31,8 @@ SECRET_KEY = "CHANGEME!!!"
 MEDIA_ROOT = "/media"
 MEDIA_URL = "/media/"
 
-# store staic files in deployment, not in Minio
-STORAGES["default"] = {  # noqa: F405
+# store static files in deployment, not in Minio
+STORAGES["staticfiles"] = {  # noqa: F405
     "BACKEND": "django.core.files.storage.FileSystemStorage"
 }
 
