@@ -33,7 +33,7 @@ MEDIA_URL = "/media/"
 
 # store static files in deployment, not in Minio
 STORAGES["staticfiles"] = {  # noqa: F405
-    "BACKEND": "django.core.files.storage.FileSystemStorage"
+    "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
 }
 
 LOGGING = {
