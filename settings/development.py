@@ -32,9 +32,9 @@ STATIC_URL = "/static/"
 STATIC_ROOT = "/static/"
 
 # Project has no docker-compose, use filesystem for media
-STORAGES["default"] = {  # noqa: F405
-    "BACKEND": "django.core.files.storage.FileSystemStorage"
-}
+#STORAGES["default"] = {  # noqa: F405
+#    "BACKEND": "django.core.files.storage.FileSystemStorage"
+#}
 MEDIA_ROOT = os.getenv("MEDIA_ROOT", BASE_DIR / "media")
 MEDIA_URL = "/media/"
 
