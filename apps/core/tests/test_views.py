@@ -26,6 +26,7 @@ class TestSitePageLoading:
         """Test that the homepage loads with correct status code."""
         response = django_app.get("/")
         assert response.status_code == HTTPStatus.OK
+        assert 'lang="nl"' in response.content.decode()
         assert "Antwoorden van wetenschappers op al je vragen over klimaatverandering" in response.content.decode()
 
     def test_admin_pages_load(self, django_app):
