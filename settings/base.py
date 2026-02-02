@@ -225,6 +225,7 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+<<<<<<< HEAD
 STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"
 # Static files (CSS, JavaScript, Images)
@@ -243,6 +244,8 @@ if not DEBUG:
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
+=======
+>>>>>>> main
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "klimaat-helpdesk"
