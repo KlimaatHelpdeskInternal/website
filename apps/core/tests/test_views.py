@@ -43,7 +43,7 @@ class TestSitePageLoading:
         response = django_app.get("/__healthcheck__/")
         assert response.status_code == HTTPStatus.OK
 
-    def test_error_pages_load_in_debug_mode(self, django_app, settings):
+    def test_error_pages_load_in_debug_mode(self, django_app, settings):                        # ? Not found in templates
         """Test that error pages load correctly in debug mode."""
         if settings.DEBUG:
             response = django_app.get("/test404")
@@ -54,7 +54,7 @@ class TestSitePageLoading:
 
 
 @pytest.mark.django_db
-class TestWagtailHelpdeskPages:                                                                 # TODO review if this can be moved to wagtail repo
+class TestWagtailHelpdeskPages:
     """Test wagtail-helpdesk specific pages load correctly."""
 
     def test_answer_index_page_loads(self, django_app, home_page):
