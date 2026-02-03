@@ -2,6 +2,7 @@
 -r testing.in
 
 fabric
+dotenv 
 GitPython
 inquirer
 pep8
