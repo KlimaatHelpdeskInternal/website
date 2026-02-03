@@ -2,6 +2,7 @@
 -r testing.in
 
 fabric
+dotenvpy -m piptools compile requirements/development.in
 GitPython
 inquirer
 pep8
