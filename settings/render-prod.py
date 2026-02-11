@@ -61,4 +61,9 @@ if not DEBUG:
 
 
 
+GITLAB_PERSONAL_TOKEN= get_secret(
+    os.getenv("GITLAB_PERSONAL_TOKEN_FILE", "/run/secrets/gitlab_personal_token"), ""
+)
+GITLAB_PROJECT_ID=14981988
+
 
