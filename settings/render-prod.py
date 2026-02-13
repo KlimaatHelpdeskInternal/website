@@ -60,7 +60,7 @@ if not DEBUG:
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
     # and renames the files with unique names for each version to support long-term caching
     STORAGES["staticfiles"] = {  # noqa: F405
-    "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage"
 }
 
 GITLAB_PERSONAL_TOKEN= get_secret(
