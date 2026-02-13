@@ -84,7 +84,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Render: override ALLEEN staticfiles storage (laat default media S3 met rust)
 STORAGES["staticfiles"] = {
-    "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage"
 }
 
 
