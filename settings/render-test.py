@@ -18,7 +18,7 @@ MIDDLEWARE = [
 #del(STORAGES)
 
 ALLOWED_HOSTS = []
-DEBUG = False
+DEBUG = True
 # jos 13/02 testing debug is false to see if it breaks in test, print a msg for log
 if DEBUG:
     print("DEBUG is True, this should not be the case in production!")
