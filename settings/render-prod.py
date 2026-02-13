@@ -45,6 +45,37 @@ LOGGING = {
             "class": "logging.StreamHandler",
         },
     },
+    "formatters": {
+        "default": {
+            "verbose": "[%(asctime)s] (%(process)d/%(thread)d) %(name)s %(levelname)s: %(message)s"
+        }
+    },
+    "loggers": {
+        "klimaat-helpdesk": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+            "formatter": "verbose",
+        },
+        "wagtail": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+            "formatter": "verbose",
+        },
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+            "formatter": "verbose",
+        },
+        "django.security": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+            "formatter": "verbose",
+        },
+    },
 }
 
 
