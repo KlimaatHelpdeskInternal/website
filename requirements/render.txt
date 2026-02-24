@@ -316,7 +316,7 @@ wagtail==5.2.8
     #   wagtail-modeladmin
 wagtail-factories==4.2.1
     # via -r testing.in
-wagtail-helpdesk @ https://github.com/KlimaatHelpdeskInternal/wagtail-helpdesk/archive/refs/heads/ticket-9.zip
+wagtail-helpdesk @ https://github.com/KlimaatHelpdeskInternal/wagtail-helpdesk/archive/refs/heads/main.zip
 wagtail-modeladmin==2.2.0
     # via wagtail-helpdesk
 waitress==3.0.2
