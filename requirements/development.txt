@@ -765,7 +765,7 @@ wagtail-modeladmin==2.2.0 \
     #   wagtail-modeladmin
 wagtail-factories==4.2.1
     # via -r testing.in
-wagtail-helpdesk @ https://github.com/Klimaat-Helpdesk/wagtail-helpdesk/archive/refs/tags/0.7.0.zip
+wagtail-helpdesk @ https://github.com/KlimaatHelpdeskInternal/wagtail-helpdesk/archive/refs/heads/main.zip
     # via -r base.in
 wagtail-modeladmin==2.2.0
 >>>>>>> 7af7276faf8270efbefb65dcfd29614e5b4f8ebc
