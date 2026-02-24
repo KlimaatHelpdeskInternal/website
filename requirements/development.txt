@@ -736,9 +736,11 @@ wagtail==5.2.8
     #   wagtail-modeladmin
 <<<<<<< HEAD
 wagtail-factories==4.2.1
-    # via -r c:\KH\Main\website\requirements\testing.in
-wagtail-helpdesk @ https://github.com/Klimaat-Helpdesk/wagtail-helpdesk/archive/refs/tags/0.7.5.zip
-    # via -r c:\KH\Main\website\requirements\base.in
+    # via -r c:\KH\klimaat-helpdesk\requirements\testing.in
+# wagtail-helpdesk @ https://github.com/Klimaat-Helpdesk/wagtail-helpdesk/archive/refs/tags/0.7.5.zip
+# build test by Jos Velema 
+wagtail-helpdesk @ https://github.com/KlimaatHelpdeskInternal/wagtail-helpdesk/archive/refs/heads/ticket-9.zip
+    # via -r c:\KH\klimaat-helpdesk\requirements\base.in
 wagtail-modeladmin==2.0.0
     # via wagtail-helpdesk
 waitress==3.0.0
@@ -763,7 +765,7 @@ wagtail-modeladmin==2.2.0 \
     #   wagtail-modeladmin
 wagtail-factories==4.2.1
     # via -r testing.in
-wagtail-helpdesk @ https://github.com/Klimaat-Helpdesk/wagtail-helpdesk/archive/refs/tags/0.7.0.zip
+wagtail-helpdesk @ https://github.com/KlimaatHelpdeskInternal/wagtail-helpdesk/archive/refs/heads/main.zip
     # via -r base.in
 wagtail-modeladmin==2.2.0
 >>>>>>> 7af7276faf8270efbefb65dcfd29614e5b4f8ebc
