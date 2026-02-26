@@ -15,7 +15,7 @@ MIDDLEWARE = [
 ]
 
 
-del(STORAGES)
+#del(STORAGES)
 
 ALLOWED_HOSTS = []
 DEBUG = True
@@ -26,11 +26,15 @@ if RENDER_EXTERNAL_HOSTNAME:
 ALLOWED_HOSTS.append("test.klimaathelpdesk.org")
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "CHANGEME!!!"
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 MEDIA_ROOT = "/media"
 MEDIA_URL = "/media/"
 
+# store static files in deployment, not in Minio
+STORAGES["staticfiles"] = {  # noqa: F405
+    "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+}
 
 LOGGING = {
     "version": 1,
@@ -45,6 +49,8 @@ LOGGING = {
 
 STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"
+
+
 # This production code might break development mode, so we check whether we're in DEBUG mode
 if not DEBUG:
     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
@@ -52,8 +58,6 @@ if not DEBUG:
 
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
     # and renames the files with unique names for each version to support long-term caching
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-
-
+    STORAGES["staticfiles"] = {  # noqa: F405
+    "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+}
