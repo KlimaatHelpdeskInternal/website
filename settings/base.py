@@ -11,6 +11,8 @@ import os
 from pathlib import Path
 from botocore.client import Config as BotoConfig
 
+from dotenv import load_dotenv
+load_dotenv() 
 
 def get_secret(secret_path, default=None):
     if not os.path.exists(secret_path):
