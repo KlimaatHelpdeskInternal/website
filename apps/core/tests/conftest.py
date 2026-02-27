@@ -15,7 +15,7 @@ def home_page():
 @pytest.fixture(scope="session", autouse=True)
 def django_db_setup():
     """Set up temporary PostgreSQL credentials for the test session."""
-    from settings.local import DATABASES
+    from settings.base import DATABASES
     from django.conf import settings
 
     settings.DATABASES["default"].update(DATABASES["default"])

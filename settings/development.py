@@ -1,6 +1,5 @@
 from .base import *  # NOQA
-from dotenv import load_dotenv
-load_dotenv()
+
 INSTALLED_APPS += [
     # "debug_toolbar",
 ]

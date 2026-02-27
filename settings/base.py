@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from botocore.client import Config as BotoConfig
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def get_secret(secret_path, default=None):
