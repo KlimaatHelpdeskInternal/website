@@ -1,7 +1,7 @@
 -r base.in
 -r testing.in
 fabric
-dotenv 
+python-dotenv
 GitPython
 inquirer
 pep8

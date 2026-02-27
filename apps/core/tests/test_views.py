@@ -64,7 +64,7 @@ class TestWagtailHelpdeskPages:
 
         response = django_app.get(answer_index.url)
         assert response.status_code == HTTPStatus.OK
-        assert "answers" in response
+        assert "answers" in response.content.decode()
 
     def test_answer_detail_page_loads(self, django_app, home_page):
         """Test that individual answer pages load correctly."""
@@ -165,7 +165,12 @@ class TestPageNavigation:
         response = django_app.get("/")
         content = response.content.decode()
 
-        # Check that the created pages are accessible via their URLs
+        # Check that navigation contains links to the created pages
+        assert answer_index.url in content or "Answers" in content
+        assert expert_index.url in content or "Experts" in content
+        assert ask_question.url in content or "Ask a Question" in content
+
+        # Also verify pages are accessible
         assert django_app.get(answer_index.url).status_code == HTTPStatus.OK
         assert django_app.get(expert_index.url).status_code == HTTPStatus.OK
         assert django_app.get(ask_question.url).status_code == HTTPStatus.OK
@@ -201,27 +206,27 @@ class TestPageNavigation:
 
 @pytest.mark.django_db
 class TestPageAccessibility:
-	"""Test page accessibility and error handling."""
+    """Test page accessibility and error handling."""
 
-	def test_nonexistent_pages_return_404(self, django_app):
-		"""Test that non-existent pages return 404 status."""
-		response = django_app.get("/nonexistent-page/", expect_errors=True)
-		assert response.status_code == HTTPStatus.NOT_FOUND
+    def test_nonexistent_pages_return_404(self, django_app):
+        """Test that non-existent pages return 404 status."""
+        response = django_app.get("/nonexistent-page/", expect_errors=True)
+        assert response.status_code == HTTPStatus.NOT_FOUND
 
-	def test_pages_handle_malformed_urls(self, django_app, home_page):
-		"""Test that pages handle malformed URLs gracefully."""
-		answer_index = AnswerIndexPageFactory(parent=home_page, slug="answers")
+    def test_pages_handle_malformed_urls(self, django_app, home_page):
+        """Test that pages handle malformed URLs gracefully."""
+        answer_index = AnswerIndexPageFactory(parent=home_page, slug="answers")
 
-		# Test malformed category URL
-		malformed_url = f"{answer_index.url}/category/nonexistent-category/"
-		response = django_app.get(malformed_url, expect_errors=True)
-		# Should either return 404 or handle empty results
-		assert response.status_code == HTTPStatus.NOT_FOUND
+        # Test malformed category URL
+        malformed_url = f"{answer_index.url}/category/nonexistent-category/"
+        response = django_app.get(malformed_url, expect_errors=True)
+        # Should either return 404 or handle empty results
+        assert response.status_code == HTTPStatus.NOT_FOUND
 
-	def test_iframe_search_widget_loads(self, django_app):
-		"""Test that iframe search widget endpoint loads."""
-		response = django_app.get("/iframe-search-widget")
-		assert response.status_code == HTTPStatus.OK
+    def test_iframe_search_widget_loads(self, django_app):
+        """Test that iframe search widget endpoint loads."""
+        response = django_app.get("/iframe-search-widget")
+        assert response.status_code == HTTPStatus.OK
 
 
 @pytest.mark.django_db
