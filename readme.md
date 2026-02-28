@@ -1,4 +1,5 @@
-![CI Status](https://github.com/ByteMaps/TFfK_actions/actions/workflows/ci.yml/badge.svg)
+![CI Status](https://github.com/KlimaatHelpdeskInternal/website/actions/workflows/integration-tests.yml/badge.svg)
+
 # Klimaathelpdesk
 
 This is the repository for website https://klimaathelpdesk.org

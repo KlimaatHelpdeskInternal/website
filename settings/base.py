@@ -148,10 +148,10 @@ DATABASES = {"default": {
         "NAME": os.getenv("POSTGRES_NAME", "biodiversiteithelpdesk"),
         "HOST": os.getenv("POSTGRES_HOST", ""),
         "PORT": os.getenv("POSTGRES_PORT", 5432),
-        "USER": os.getenv("POSTGRES_USER", ""),
+        "USER": os.getenv("POSTGRES_USER", "postgres"),
         "PASSWORD": get_secret(
             os.getenv("POSTGRES_PASSWORD_FILE", "/run/secrets/db_password"),
-            "",
+            "postgres",
         ),
 }}
 
