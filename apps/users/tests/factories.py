@@ -1,3 +1,5 @@
+import secrets 
+
 from typing import Any, Sequence
 
 from django.contrib.auth import get_user_model
@@ -7,6 +9,9 @@ from factory.django import DjangoModelFactory
 User = get_user_model()
 
 
+def make_random_password(length=10, allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'):
+    return ''.join(secrets.choice(allowed_chars) for i in range(length))
+
 class UserFactory(DjangoModelFactory):
     username = Faker("user_name")
     email = Faker("email")
@@ -14,7 +19,7 @@ class UserFactory(DjangoModelFactory):
 
     @post_generation
     def password(self, create: bool, extracted: Sequence[Any], **kwargs):
-        password = User.objects.make_random_password()
+        password = make_random_password()
         self.set_password(password)
 
     class Meta:
