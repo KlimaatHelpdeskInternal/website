@@ -1,4 +1,7 @@
 django==5.2
 wagtail~=7.1
+wagtail-helpdesk @ https://github.com/KlimaatHelpdeskInternal/wagtail-helpdesk/archive/refs/heads/main.zip
 python-gitlab
 django-health-check
+django-storages[s3]
+django-embed-video
