@@ -3,7 +3,7 @@
     "private": true,
     "author": "Four Digits <info@fourdigits.nl>",
     "engines": {
-        "node": "^18"
+        "node": ">=20.0.0 <22.0.0"
     },
     "scripts": {
         "start": "webpack --mode=development --watch --progress",
